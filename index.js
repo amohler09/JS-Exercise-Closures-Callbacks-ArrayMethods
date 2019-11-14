@@ -72,8 +72,6 @@ function processLastItem(stringList, callback) {
 
 };
 
-
-
 /**
  * ### Challenge `processSum`
  * 
@@ -275,11 +273,19 @@ function firstNamesAllCaps(runners) {
  * The runners in the array appear in the same order they appear in the `runners` array.
 */
 function getRunnersByTShirtSize(runners, tShirtSize) {
+  const runnersByTShirtSize = runners.filter(function(item){
+    return item.shirt_size === tShirtSize;
+  })
+    return runnersByTShirtSize;
+  };
+ 
+
+  /* 
   const runnersByTShirtSize = runners.filter(function(item) {
     return item.shirt_size === tShirtSize;
   });
-}
-
+  }
+  */
 /**
  * ### Challenge `tallyUpDonations`
  * 
@@ -290,8 +296,11 @@ function getRunnersByTShirtSize(runners, tShirtSize) {
  * @param runners array of runners like the one inside the /data/runners.js file.
  * @returns a number which is the sum of the donations by all runners.
 */
-function tallyUpDonations(/* CODE HERE */) {
-  /* CODE HERE */
+function tallyUpDonations(runners) {
+  const donations = runners.reduce(function(accumulator, currentValue){
+    return accumulator + currentValue.donation;
+  }, 0);
+  return donations;  
 }
 
 /////////////// CLOSURES ///////////////
@@ -310,14 +319,26 @@ function tallyUpDonations(/* CODE HERE */) {
  * counter() // should return 2
  * etc
 */
-function counterMaker() {
-  // BROKEN CODE STARTS
-  const count = 0;
-  function counter() {
-    ++count
+/*const counter = function counter(){
+  let count = 0;
+  return function() {
+    return ++count;
   }
-  // BROKEN CODE ENDS
+};
+const newCounter = counter();
+return newCounter();
+};*/
+
+
+const counterMaker = function counterMaker() {
+  let count = 0;
+  return function() {
+    return ++count;
+  }
 }
+const newCounter = counterMaker();
+return newCounter();
+};
 
 /**
  * ### Challenge `counterMakerWithLimit`
